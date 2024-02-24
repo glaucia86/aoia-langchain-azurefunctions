@@ -51,7 +51,7 @@ http://localhost:7071/api/chat
 
 7. Click the `Send` button and you should receive a response from the terminal where the Azure Functions is running.
 
-[![chat-functions.gif](https://i.postimg.cc/DwWCLnzM/chat-functions.gif)](https://postimg.cc/RWBQzrK7)
+[![chat-functions.gif](https://i.postimg.cc/xdVK8bFt/chat-functions.gif)](https://postimg.cc/CRJZ6d0q)
 
 
 
