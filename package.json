@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
-    "@azure/identity": "^4.0.1",
-    "@langchain/azure-openai": "^0.0.2",
-    "dotenv": "^16.4.5"
+    "@langchain/openai": "^0.0.14",
+    "dotenv": "^16.4.5",
+    "langchain": "^0.1.21"
   },
   "devDependencies": {
     "@types/node": "^18.19.18",
