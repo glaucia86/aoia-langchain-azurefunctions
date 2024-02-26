@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import { AzureOpenAI } from "@langchain/azure-openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -21,21 +21,18 @@ export async function chat(request: HttpRequest, context: InvocationContext): Pr
 
         const question = requestBody.question;
 
-        const model = new AzureOpenAI({
-            azureOpenAIEndpoint: process.env.AZURE_OPENAI_API_ENDPOINT || "",
+        const embeddings = new OpenAIEmbeddings({
             azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY || "",
+            azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION || "",
+            azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME || "",
             azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_EMBEDDING_DEPLOYMENT_NAME || "",
-            modelName: 'gpt-35-turbo',
-            maxTokens: 50,
-            maxRetries: 1,
-            temperature: 0.2,
+            modelName: process.env.AZURE_OPENAI_MODEL_NAME || "",
         });
 
-        const prompt = `Question: ${question}\nAnswer: `;
+        const prompt = `Question: ${question}`;
         context.log(`Sending prompt to model: ${prompt}`);
 
-        const promptResponse = await model.invoke(prompt);
-        context.log(`Prompt Response: ${JSON.stringify(promptResponse)}`);
+        const promptResponse = await embeddings.embedQuery(prompt);
 
         if (promptResponse) {
             return {
