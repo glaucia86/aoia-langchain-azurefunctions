@@ -1,13 +1,11 @@
-import { AzureOpenAI } from "@langchain/azure-openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 
-export function getAzureOpenAIConfig(): AzureOpenAI {
-  return new AzureOpenAI({
-    azureOpenAIEndpoint: process.env.AZURE_OPENAI_API_ENDPOINT || "",
+export function getAzureOpenAIConfig(): OpenAIEmbeddings {
+  return new OpenAIEmbeddings({
     azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY || "",
+    azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION || "",
+    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME || "",
     azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_EMBEDDING_DEPLOYMENT_NAME || "",
-    modelName: 'gpt-35-turbo',
-    maxTokens: 50,
-    maxRetries: 1,
-    temperature: 0.2,
+    modelName: process.env.AZURE_OPENAI_MODEL_NAME || "",
   });
 }

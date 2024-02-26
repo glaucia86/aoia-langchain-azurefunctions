@@ -3,16 +3,15 @@ import { logger } from '../utils/logging.util';
 import { InvocationContext } from '@azure/functions';
 
 export const chatService = {
-  async getAnswer(question: string, context: InvocationContext): Promise<string | null> {
-    const model = getAzureOpenAIConfig();
-    const prompt = `Question: ${question}\nAnswer`;
+  async getAnswer(question: string, context: InvocationContext): Promise<number[] | null> {
+    const embeddings = getAzureOpenAIConfig();
+    const prompt = `Question: ${question}`;
     logger(context, `Sending prompt to model: ${prompt}`);
 
     try {
-      const response = await model.invoke(prompt);
-      logger(context, `Model response: ${response}`);
+      const promptChatResponse = await embeddings.embedQuery(prompt);
 
-      return response;
+      return promptChatResponse;
     } catch (error) {
       logger(context, `Error in chatService.getAnswer: ${error}`);
       throw error;
